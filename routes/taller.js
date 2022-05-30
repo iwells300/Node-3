@@ -45,11 +45,15 @@ router.post('/',function(req,res){
   ultimoAcceso=moment().format('MMMM Do YYYY, h:mm a');
   hora=moment().format('h');
   ampm=moment().format('a');
-  /*res.redirect('/usuario');*/
-  if(hora>6||ampm=='am'){saludo='Buenos dias';}
-  if(hora>1||ampm=='pm'){saludo='Buenas tardes';}
-  if(hora>8||ampm=='pm'){saludo='Buenas noches';}
-  if(hora>0||ampm=='am'){saludo='Buenas noches';}
+  if(ampm=='am'){
+    if(hora<6){saludo='Buenas noches';}
+    else{saludo='Buenos dias';}
+  }else{
+    if(hora<8){saludo='Buenas tardes';}
+    else if(hora==12){
+      saludo='Buenos dias';
+    }else{saludo='Buenas noches';}
+  }
 
   passWd=req.body.passwd;
   passWd=passWd.toString();
